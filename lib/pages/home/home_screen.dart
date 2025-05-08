@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:pudez_street_playground/common/components/qr_dialog.dart';
 import 'package:pudez_street_playground/common/data/booth_list.dart';
 import 'package:pudez_street_playground/common/style/color.dart';
 import 'package:pudez_street_playground/pages/home/booth_model.dart';
@@ -49,6 +50,39 @@ class _HomeScreenState extends State<HomeScreen> {
     asyncPrefs.setString('boothList', json.encode(updatedList)); // 상태 저장
   }
 
+  // QR 인식창 띄우기
+  void showQrScanner() async {
+    // QR 인식창 띄우는 로직
+    try {
+      final value = await showModalBottomSheet<String?>(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(8),
+          ),
+        ),
+        isScrollControlled: true,
+        backgroundColor: white,
+        builder: (BuildContext context) {
+          return QrDialog();
+        },
+      );
+
+      if (value != null) {
+        int index = int.parse(value) - 1;
+        updateBooth(
+          index,
+          boothList[index].copyWith(
+            isActive: true,
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle error
+      print('Error showing QR scanner: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: key,
         shape: const CircleBorder(),
-        onPressed: () {},
+        onPressed: showQrScanner,
         child: const Icon(
           Icons.qr_code_scanner_rounded,
           color: white,
