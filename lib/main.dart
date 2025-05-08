@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pudez_street_playground/pages/home/home-screen.dart';
-import 'package:pudez_street_playground/pages/onboarding/onboarding-screen.dart';
+import 'package:pudez_street_playground/pages/home/home_screen.dart';
+import 'package:pudez_street_playground/pages/onboarding/onboarding_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,6 +13,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         fontFamily: 'Pretendard',

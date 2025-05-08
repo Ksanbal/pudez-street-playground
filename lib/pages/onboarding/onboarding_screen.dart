@@ -2,7 +2,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pudez_street_playground/common/components/my-text-button.dart';
+import 'package:pudez_street_playground/common/components/my_text_button.dart';
 import 'package:pudez_street_playground/common/style/color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
