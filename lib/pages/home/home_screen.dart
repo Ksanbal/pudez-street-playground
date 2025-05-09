@@ -89,18 +89,74 @@ class _HomeScreenState extends State<HomeScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return Transform.rotate(
-        //   angle: 90 * 3.14 / 180,
-        //   // angle: 0 * 3.14 / 180,
-        //   child: GestureDetector(
-        //     onTap: () {},
-        //     child: ExtendedImage.asset(
-        //       'images/map/map.png',
-        //       mode: ExtendedImageMode.gesture,
-        //     ),
-        //   ),
-        // );
         return MapDialog();
+      },
+    );
+  }
+
+  // 미션 달성 안내 dialog 노출
+  void showMissionComplete() {
+    showModalBottomSheet<String?>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(8),
+        ),
+      ),
+      backgroundColor: white,
+      builder: (BuildContext context) {
+        return SizedBox(
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Flexible(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.check_circle_outline_rounded,
+                        size: 20,
+                        color: textPrimary,
+                      ),
+                      Gap(12),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "미션 성공 - 선물을 받을 수 있어요!",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            "6개 부스를 참여했어요! 7번 부스로 이동하세요!",
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: context.pop,
+                  child: Icon(
+                    Icons.close,
+                    color: textSecond,
+                    size: 24,
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
       },
     );
   }

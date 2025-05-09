@@ -11,31 +11,27 @@ class MapDialog extends StatefulWidget {
 }
 
 class _MapDialogState extends State<MapDialog> {
-  double angle = 0;
+  bool rotate = false;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Center(
-          child: Transform.rotate(
-            angle: angle * 3.14 / 180,
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  if (angle == 0) {
-                    angle = 90;
-                  } else {
-                    angle = 0;
-                  }
-                });
-              },
-              child: ExtendedImage.asset(
-                'assets/images/map/map.png',
-                mode: ExtendedImageMode.gesture,
-                fit: BoxFit.cover,
-              ),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              rotate = !rotate;
+            });
+          },
+          child: SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: ExtendedImage.asset(
+              rotate ? 'assets/images/map/map_rotate.png' : 'assets/images/map/map.png',
+              mode: ExtendedImageMode.gesture,
+              enableSlideOutPage: true,
+              fit: BoxFit.contain,
             ),
           ),
         ),
