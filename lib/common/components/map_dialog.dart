@@ -32,7 +32,7 @@ class _MapDialogState extends State<MapDialog> {
                 });
               },
               child: ExtendedImage.asset(
-                'images/map/map.png',
+                'assets/images/map/map.png',
                 mode: ExtendedImageMode.gesture,
                 fit: BoxFit.cover,
               ),
