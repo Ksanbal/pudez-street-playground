@@ -8,3 +8,4 @@ const Color white = Colors.white;
 const Color key = Color(0xff00C16A);
 const Color sky = Color(0xff0084D1);
 const Color pink = Color(0xffE60076);
+const Color textSecond = Color(0xff314158);

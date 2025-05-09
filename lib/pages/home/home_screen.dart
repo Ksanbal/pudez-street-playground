@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pudez_street_playground/common/components/map_dialog.dart';
 import 'package:pudez_street_playground/common/components/qr_dialog.dart';
 import 'package:pudez_street_playground/common/data/booth_list.dart';
@@ -28,6 +29,33 @@ class _HomeScreenState extends State<HomeScreen> {
     loadBoothList();
   }
 
+  // 부스 조건 달성 조건 확인
+  bool isCompleteBooth() {
+    // 7번 퍼디즈 제외 활성화된 부스가 놀이 3개, 체험 3개면 이상이면
+    final playCount = getPlayCount();
+    final experienceCount = getExperienceCount();
+
+    return playCount >= 3 && experienceCount >= 3;
+  }
+
+  // 참여한 놀이 부스 수
+  int getPlayCount() {
+    return boothList
+        .where(
+          (booth) => booth.id != 7 && booth.isActive && booth.boothType == '놀이',
+        )
+        .length;
+  }
+
+  // 참여한 체험 부스 수
+  int getExperienceCount() {
+    return boothList
+        .where(
+          (booth) => booth.id != 7 && booth.isActive && booth.boothType == '체험',
+        )
+        .length;
+  }
+
   // 부스 리스트 상태 저장 및 불러오기
   loadBoothList() async {
     final data = await asyncPrefs.getString('boothList');
@@ -48,7 +76,17 @@ class _HomeScreenState extends State<HomeScreen> {
     final updatedList = List<BoothModel>.from(boothListNotifier.value);
     updatedList[index] = updatedBooth;
     boothListNotifier.value = updatedList; // 값 업데이트
-    asyncPrefs.setString('boothList', json.encode(updatedList)); // 상태 저장
+
+    // 상태 저장
+    asyncPrefs.setString('boothList', json.encode(boothList));
+
+    if (isCompleteBooth()) {
+      if (updatedBooth.id == 7 && updatedBooth.isActive) {
+        context.push('/survey');
+      } else {
+        showMissionComplete();
+      }
+    }
   }
 
   // QR 인식창 띄우기
@@ -161,6 +199,42 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // 선물 버튼 클릭
+  onTapGiftButton() async {
+    // 참여조건이 부족하면
+    if (!isCompleteBooth()) {
+      final playCount = getPlayCount();
+      final experienceCount = getExperienceCount();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '놀이 부스 ${3 - playCount}개, 체험 부스 ${3 - experienceCount}개 남았어요!',
+            style: TextStyle(color: white),
+          ),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      return;
+    }
+
+    // 퍼디즈 부스가 완료되지 않았으면 7번 부스 참여
+    if (!boothList[6].isActive) {
+      showMissionComplete();
+      return;
+    }
+
+    // 설문조사 기록 조회
+    final surveryComplete = await asyncPrefs.getBool('surveryComplete');
+    if (surveryComplete == null || !surveryComplete) {
+      // 설문조사 기록이 없으면 설문조사 페이지로 이동
+      context.push('/survey');
+    } else {
+      // 선물 페이지로 이동
+      context.push('/gift');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             icon: const Icon(CupertinoIcons.gift),
-            onPressed: () {},
+            onPressed: onTapGiftButton,
           ),
         ],
       ),
@@ -281,7 +355,7 @@ class BoothCard extends StatelessWidget {
           Gap(6),
           Flexible(
             child: Text(
-              booth.name,
+              '${booth.id} - ${booth.name}',
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
