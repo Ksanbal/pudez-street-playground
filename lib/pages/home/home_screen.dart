@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:pudez_street_playground/common/components/map_dialog.dart';
 import 'package:pudez_street_playground/common/components/qr_dialog.dart';
 import 'package:pudez_street_playground/common/data/booth_list.dart';
 import 'package:pudez_street_playground/common/style/color.dart';
@@ -83,6 +84,27 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // 부스 안내도 dialog 노출
+  void showMap() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return Transform.rotate(
+        //   angle: 90 * 3.14 / 180,
+        //   // angle: 0 * 3.14 / 180,
+        //   child: GestureDetector(
+        //     onTap: () {},
+        //     child: ExtendedImage.asset(
+        //       'images/map/map.png',
+        //       mode: ExtendedImageMode.gesture,
+        //     ),
+        //   ),
+        // );
+        return MapDialog();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: white,
         leading: IconButton(
           icon: const Icon(Icons.map_outlined),
-          onPressed: () {},
+          onPressed: showMap,
         ),
         actions: [
           IconButton(
