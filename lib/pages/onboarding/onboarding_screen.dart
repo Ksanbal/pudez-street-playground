@@ -65,19 +65,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   const OnboardingItem(
                     title: '골목놀이터에 오신걸 환영해요!\n목감종합사회복지관과 퍼디즈가 함께해요',
-                    imageProvider: NetworkImage('https://picsum.photos/640/640?random=1'),
+                    imageProvider: AssetImage('/images/onboarding/onboarding_1.jpg'),
                   ),
                   const OnboardingItem(
                     title: '오늘 활동 중 생긴 쓰레기는\n나눠준 봉투에 넣어주세요',
-                    imageProvider: NetworkImage('https://picsum.photos/640/640?random=2'),
+                    imageProvider: AssetImage('/images/onboarding/onboarding_2.jpg'),
                   ),
                   const OnboardingItem(
                     title: '15개 부스 중 체험존, 놀이존 각각\n3개를 마치고, 7번 부스로 오세요',
-                    imageProvider: NetworkImage('https://picsum.photos/640/640?random=3'),
+                    imageProvider: AssetImage('/images/onboarding/onboarding_3.jpg'),
                   ),
                   const OnboardingItem(
                     title: '모아온 쓰레기로 게임에 참여하면\n선물을 받을 수 있어요!',
-                    imageProvider: NetworkImage('https://picsum.photos/640/640?random=4'),
+                    imageProvider: AssetImage('/images/onboarding/onboarding_4.jpg'),
                   ),
                   OnboardingNameInput(
                     formKey: formKey,
