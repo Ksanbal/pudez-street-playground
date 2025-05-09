@@ -47,8 +47,8 @@ final List<BoothModel> boothList = [
   BoothModel(
     id: 7,
     teamName: '퍼디즈',
-    name: '퍼디즈',
-    description: '',
+    name: '내가 바로 골목 정리대장!',
+    description: '스스로 치우고 정리하는 즐거운 골목 놀이터 만들기',
     boothType: '체험',
   ),
   BoothModel(
