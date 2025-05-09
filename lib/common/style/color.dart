@@ -6,6 +6,7 @@ const Color bgGrey = Color(0xffF1F5F9);
 const Color border = Color(0xffE2E8F0);
 const Color white = Colors.white;
 const Color key = Color(0xff00C16A);
+const Color keySecond = Color(0xffD9FBE8);
 const Color sky = Color(0xff0084D1);
 const Color pink = Color(0xffE60076);
 const Color textSecond = Color(0xff314158);
