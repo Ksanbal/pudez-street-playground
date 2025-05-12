@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (isCompleteBooth()) {
       if (updatedBooth.id == 7 && updatedBooth.isActive) {
         context.push('/survey');
-      } else {
+      } else if (!boothListNotifier.value[6].isActive) {
         showMissionComplete();
       }
     }
