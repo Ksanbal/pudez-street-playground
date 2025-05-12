@@ -15,7 +15,7 @@ final List<BoothModel> boothList = [
     teamName: '목감시립어린이집 연합',
     name: '투호던지기',
     description: '투호통에 자유롭게 투포 던져보기',
-    boothType: '놀이',
+    boothType: '체험',
     isActive: false,
   ),
   BoothModel(
@@ -31,7 +31,7 @@ final List<BoothModel> boothList = [
     teamName: '글로커에듀연구소&목감마을문화나눔단',
     name: '응답하라 보드게임',
     description: '오프라인에서 즐기는 재미있는 보드게임',
-    boothType: '놀이',
+    boothType: '체험',
     isActive: false,
   ),
   BoothModel(
@@ -39,7 +39,7 @@ final List<BoothModel> boothList = [
     teamName: '목감청소년지도협의회',
     name: '산가지 놀이',
     description: '막대기를 이용해 다양한 게임을 즐길 수 있는 산가지 놀이',
-    boothType: '놀이',
+    boothType: '체험',
     isActive: false,
   ),
   BoothModel(
@@ -63,7 +63,7 @@ final List<BoothModel> boothList = [
     teamName: '종이접기 사범모임',
     name: '종이나라로 풍덩!',
     description: '동화 속 이야기를 종이로 만들어보기',
-    boothType: '체험',
+    boothType: '놀이',
   ),
   BoothModel(
     id: 9,
@@ -98,20 +98,20 @@ final List<BoothModel> boothList = [
     teamName: '목감마을교육자치회',
     name: '고무신 던지고 달고나 톡!',
     description: '원고무신을 발에 끼고 던져 점수판 맞추기',
-    boothType: '체험',
+    boothType: '놀이',
   ),
   BoothModel(
     id: 14,
     teamName: '목감청소년문화의집',
     name: '추억의 공기 톡톡! 완전 럭키 애니멀즈잖항★',
     description: '나만의 공기돌을 꾸미고 공기 미션 성공 시 상품 증정!',
-    boothType: '체험',
+    boothType: '놀이',
   ),
   BoothModel(
     id: 15,
     teamName: '목감초학부모회',
     name: '콩 주머니 던지기',
     description: '정해진 틀에 콩 주머니 던지기',
-    boothType: '체험',
+    boothType: '놀이',
   ),
 ];

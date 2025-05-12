@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // 참여한 놀이 부스 수
   int getPlayCount() {
-    return boothList
+    return boothListNotifier.value
         .where(
           (booth) => booth.id != 7 && booth.isActive && booth.boothType == '놀이',
         )
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // 참여한 체험 부스 수
   int getExperienceCount() {
-    return boothList
+    return boothListNotifier.value
         .where(
           (booth) => booth.id != 7 && booth.isActive && booth.boothType == '체험',
         )
@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
     boothListNotifier.value = updatedList; // 값 업데이트
 
     // 상태 저장
-    asyncPrefs.setString('boothList', json.encode(boothList));
+    asyncPrefs.setString('boothList', json.encode(boothListNotifier.value));
 
     if (isCompleteBooth()) {
       if (updatedBooth.id == 7 && updatedBooth.isActive) {
@@ -229,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     // 퍼디즈 부스가 완료되지 않았으면 7번 부스 참여
-    if (!boothList[6].isActive) {
+    if (!boothListNotifier.value[6].isActive) {
       showMissionComplete();
       return;
     }
