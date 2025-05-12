@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +8,7 @@ import 'package:pudez_street_playground/common/data/booth_list.dart';
 import 'package:pudez_street_playground/common/style/color.dart';
 import 'package:pudez_street_playground/pages/survey/survey_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class SurveyScreen extends StatefulWidget {
   const SurveyScreen({super.key});
@@ -63,7 +66,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
       ),
     ),
     SurveyModel(
-      question: '주차장 대신 골목 놀이터가있으니\n어떤가요?',
+      question: '주차장 대신 골목 놀이터가 있으니\n어떤가요?',
       child: StatefulBuilder(
         builder: (context, setState) {
           return Column(
@@ -327,7 +330,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                   answerList[6] = textController.text;
                   toFinish();
                 },
-                text: "다음",
+                text: "완료",
               ),
               Gap(16),
             ],
@@ -349,15 +352,35 @@ class _SurveyScreenState extends State<SurveyScreen> {
 
   // 모든 설문조사 완료
   toFinish() async {
-    print(answerList);
     // 사용자 이름 호출
     final username = await asyncPrefs.getString('name');
+    try {
+      // 데이터 저장 API 호출
+      final response = await http.post(
+        Uri.parse('https://pudez-street-playground.dev-ksanbal.workers.dev'),
+        body: json.encode({
+          "username": username,
+          "answers": answerList.map((e) => e ?? '').toList(),
+        }),
+      );
 
-    // 응답 저장
-    await asyncPrefs.setBool('surveryComplete', true);
+      if (response.statusCode != 200) {
+        // 오류 처리
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('설문조사 제출에 실패했습니다. 다시 시도해주세요.'),
+          ),
+        );
+      } else {
+        // 응답 저장
+        await asyncPrefs.setBool('surveryComplete', true);
 
-    // 페이지 이동
-    context.go('/gift');
+        // 페이지 이동
+        context.go('/gift');
+      }
+    } catch (error) {
+      print(error);
+    }
   }
 
   @override
