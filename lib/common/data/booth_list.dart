@@ -8,7 +8,7 @@ final List<BoothModel> boothList = [
     name: '봉숭아물들이기',
     description: '원하는 손가락에 봉숭아 물들이기',
     boothType: '체험',
-    isActive: true,
+    isActive: false,
   ),
   BoothModel(
     id: 2,
@@ -16,7 +16,7 @@ final List<BoothModel> boothList = [
     name: '투호던지기',
     description: '투호통에 자유롭게 투포 던져보기',
     boothType: '놀이',
-    isActive: true,
+    isActive: false,
   ),
   BoothModel(
     id: 3,
@@ -24,7 +24,7 @@ final List<BoothModel> boothList = [
     name: '페이스페인팅',
     description: '페이스페인팅',
     boothType: '체험',
-    isActive: true,
+    isActive: false,
   ),
   BoothModel(
     id: 4,
@@ -32,7 +32,7 @@ final List<BoothModel> boothList = [
     name: '응답하라 보드게임',
     description: '오프라인에서 즐기는 재미있는 보드게임',
     boothType: '놀이',
-    isActive: true,
+    isActive: false,
   ),
   BoothModel(
     id: 5,
@@ -40,7 +40,7 @@ final List<BoothModel> boothList = [
     name: '산가지 놀이',
     description: '막대기를 이용해 다양한 게임을 즐길 수 있는 산가지 놀이',
     boothType: '놀이',
-    isActive: true,
+    isActive: false,
   ),
   BoothModel(
     id: 6,
@@ -48,7 +48,7 @@ final List<BoothModel> boothList = [
     name: '같은 카드 맞추기 게임',
     description: '목감동의 다양한 자원을 담은 카드를 뒤집어 같은 카드를 맞추면 성공!',
     boothType: '체험',
-    isActive: true,
+    isActive: false,
   ),
   BoothModel(
     id: 7,
@@ -56,7 +56,7 @@ final List<BoothModel> boothList = [
     name: '내가 바로 골목 정리대장!',
     description: '스스로 치우고 정리하는 즐거운 골목 놀이터 만들기',
     boothType: '체험',
-    isActive: true,
+    isActive: false,
   ),
   BoothModel(
     id: 8,
