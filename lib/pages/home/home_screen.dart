@@ -115,6 +115,16 @@ class _HomeScreenState extends State<HomeScreen> {
             isActive: true,
           ),
         );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              '${boothList[index].name} 부스에 참여했어요!',
+              style: TextStyle(color: white),
+            ),
+            duration: Duration(seconds: 3),
+          ),
+        );
       }
     } catch (e) {
       // Handle error
