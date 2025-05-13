@@ -37,9 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return count >= 6;
   }
 
-  // 참여한 부스 수
+  // 7번 퍼디즈를 제외한 참여한 부스 수
   int getActiveCount() {
-    return boothListNotifier.value.where((booth) => booth.isActive).length;
+    return boothListNotifier.value.where((booth) => booth.id != 7 && booth.isActive).length;
   }
 
   // 부스 리스트 상태 저장 및 불러오기
