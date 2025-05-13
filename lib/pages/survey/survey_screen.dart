@@ -20,12 +20,12 @@ class SurveyScreen extends StatefulWidget {
 class _SurveyScreenState extends State<SurveyScreen> {
   final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
   final PageController pageController = PageController();
-  List<String?> answerList = List.generate(7, (_) => null);
+  List<String?> answerList = List.generate(8, (_) => null);
   int selectIndex = 0;
 
   late List<SurveyModel> surveyList = [
     SurveyModel(
-      question: '이 곳이 원래 주차 공간이었다는 걸\n알고 있었나요? ',
+      question: '이 곳이 원래 자동차가 많았던 장소였다는 걸\n알고 있었나요?',
       child: StatefulBuilder(
         builder: (context, setState) {
           return Column(
@@ -66,7 +66,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
       ),
     ),
     SurveyModel(
-      question: '주차장 대신 골목 놀이터가 있으니\n어떤가요?',
+      question: '자동차 대신 골목 놀이터가 있으니\n어떤가요?',
       child: StatefulBuilder(
         builder: (context, setState) {
           return Column(
@@ -122,6 +122,47 @@ class _SurveyScreenState extends State<SurveyScreen> {
       ),
     ),
     SurveyModel(
+      question: '골목놀이터 쓰레기를\n함께 치우니 어떤가요?',
+      child: StatefulBuilder(
+        builder: (context, setState) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 100,
+                child: SurveyButton(
+                  onPressed: () {
+                    setState(() {
+                      answerList[2] = '좋아요';
+                      selectIndex = 1;
+                      toNextPage();
+                    });
+                  },
+                  text: '좋아요',
+                  selected: selectIndex == 1,
+                ),
+              ),
+              Gap(8),
+              SizedBox(
+                height: 100,
+                child: SurveyButton(
+                  onPressed: () {
+                    setState(() {
+                      answerList[2] = '안 좋아요';
+                      selectIndex = 2;
+                      toNextPage();
+                    });
+                  },
+                  text: '안 좋아요',
+                  selected: selectIndex == 2,
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    ),
+    SurveyModel(
       question: '골목놀이터에 재미있게 참여했나요?',
       child: StatefulBuilder(
         builder: (context, setState) {
@@ -133,7 +174,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                 child: SurveyButton(
                   onPressed: () {
                     setState(() {
-                      answerList[2] = '재밌었어요';
+                      answerList[3] = '재밌었어요';
                       selectIndex = 1;
                       toNextPage();
                     });
@@ -148,7 +189,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                 child: SurveyButton(
                   onPressed: () {
                     setState(() {
-                      answerList[2] = '별로였어요';
+                      answerList[3] = '별로였어요';
                       selectIndex = 2;
                       toNextPage();
                     });
@@ -174,13 +215,13 @@ class _SurveyScreenState extends State<SurveyScreen> {
               return SurveyButton(
                 onPressed: () {
                   setState(() {
-                    answerList[3] = boothList[index].name;
+                    answerList[4] = boothList[index].name;
                     selectIndex = 1;
                     toNextPage();
                   });
                 },
                 text: boothList[index].name,
-                selected: answerList[3] == boothList[index].name,
+                selected: answerList[4] == boothList[index].name,
               );
             },
           );
@@ -231,7 +272,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
               Gap(20),
               MyTextButton(
                 onPressed: () {
-                  answerList[4] = textController.text;
+                  answerList[5] = textController.text;
                   toNextPage();
                 },
                 text: "다음",
@@ -254,7 +295,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                 child: SurveyButton(
                   onPressed: () {
                     setState(() {
-                      answerList[5] = '네';
+                      answerList[6] = '네';
                       selectIndex = 1;
                       toNextPage();
                     });
@@ -269,7 +310,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
                 child: SurveyButton(
                   onPressed: () {
                     setState(() {
-                      answerList[5] = '아니요';
+                      answerList[6] = '아니요';
                       selectIndex = 2;
                       toNextPage();
                     });
@@ -327,7 +368,7 @@ class _SurveyScreenState extends State<SurveyScreen> {
               Gap(20),
               MyTextButton(
                 onPressed: () {
-                  answerList[6] = textController.text;
+                  answerList[7] = textController.text;
                   toFinish();
                 },
                 text: "완료",
