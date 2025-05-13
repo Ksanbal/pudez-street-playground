@@ -28,7 +28,7 @@ final List<BoothModel> boothList = [
   ),
   BoothModel(
     id: 4,
-    teamName: '글로커에듀연구소&목감마을문화나눔단',
+    teamName: '글로컬에듀연구소&목감마을문화나눔단',
     name: '응답하라 보드게임',
     description: '오프라인에서 즐기는 재미있는 보드게임',
     boothType: '체험',
