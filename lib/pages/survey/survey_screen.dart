@@ -392,35 +392,42 @@ class _SurveyScreenState extends State<SurveyScreen> {
   }
 
   // 모든 설문조사 완료
+  bool canProcessFinish = true;
   toFinish() async {
-    // 사용자 이름 호출
-    final username = await asyncPrefs.getString('name');
-    try {
-      // 데이터 저장 API 호출
-      final response = await http.post(
-        Uri.parse('https://pudez-street-playground.dev-ksanbal.workers.dev'),
-        body: json.encode({
-          "username": username,
-          "answers": answerList.map((e) => e ?? '').toList(),
-        }),
-      );
+    if (canProcessFinish) {
+      canProcessFinish = false;
 
-      if (response.statusCode != 200) {
-        // 오류 처리
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('설문조사 제출에 실패했습니다. 다시 시도해주세요.'),
-          ),
+      // 사용자 이름 호출
+      final username = await asyncPrefs.getString('name');
+
+      try {
+        // 데이터 저장 API 호출
+        final response = await http.post(
+          Uri.parse('https://pudez-street-playground.dev-ksanbal.workers.dev'),
+          body: json.encode({
+            "username": username,
+            "answers": answerList.map((e) => e ?? '').toList(),
+          }),
         );
-      } else {
-        // 응답 저장
-        await asyncPrefs.setBool('surveryComplete', true);
 
-        // 페이지 이동
-        context.go('/gift');
+        if (response.statusCode != 200) {
+          // 오류 처리
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('설문조사 제출에 실패했습니다. 다시 시도해주세요.'),
+            ),
+          );
+        } else {
+          // 응답 저장
+          await asyncPrefs.setBool('surveryComplete', true);
+
+          // 페이지 이동
+          context.go('/gift');
+        }
+      } catch (error) {
+        print(error);
+        canProcessFinish = true;
       }
-    } catch (error) {
-      print(error);
     }
   }
 
