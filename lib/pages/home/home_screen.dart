@@ -67,9 +67,11 @@ class _HomeScreenState extends State<HomeScreen> {
     asyncPrefs.setString('boothList', json.encode(boothListNotifier.value));
 
     if (isCompleteBooth()) {
-      if (updatedBooth.id == 7 && updatedBooth.isActive) {
+      if (boothListNotifier.value[6].isActive) {
+        // 7번 부스가 활성화되면 설문조사 페이지로 이동
         context.push('/survey');
-      } else if (!boothListNotifier.value[6].isActive) {
+      } else {
+        // 7번 부스가 비활성화되면 미션 완료 안내
         showMissionComplete();
       }
     }
