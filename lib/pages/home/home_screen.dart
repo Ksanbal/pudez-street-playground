@@ -31,29 +31,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // 부스 조건 달성 조건 확인
   bool isCompleteBooth() {
-    // 7번 퍼디즈 제외 활성화된 부스가 놀이 3개, 체험 3개면 이상이면
-    final playCount = getPlayCount();
-    final experienceCount = getExperienceCount();
+    // 7번 퍼디즈 제외 활성화된 부스가 6개 이상이면
+    final count = getActiveCount();
 
-    return playCount >= 3 && experienceCount >= 3;
+    return count >= 6;
   }
 
-  // 참여한 놀이 부스 수
-  int getPlayCount() {
-    return boothListNotifier.value
-        .where(
-          (booth) => booth.id != 7 && booth.isActive && booth.boothType == '놀이',
-        )
-        .length;
-  }
-
-  // 참여한 체험 부스 수
-  int getExperienceCount() {
-    return boothListNotifier.value
-        .where(
-          (booth) => booth.id != 7 && booth.isActive && booth.boothType == '체험',
-        )
-        .length;
+  // 참여한 부스 수
+  int getActiveCount() {
+    return boothListNotifier.value.where((booth) => booth.isActive).length;
   }
 
   // 부스 리스트 상태 저장 및 불러오기
@@ -213,13 +199,12 @@ class _HomeScreenState extends State<HomeScreen> {
   onTapGiftButton() async {
     // 참여조건이 부족하면
     if (!isCompleteBooth()) {
-      final playCount = getPlayCount();
-      final experienceCount = getExperienceCount();
+      final count = getActiveCount();
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            '놀이 부스 ${3 - playCount}개, 체험 부스 ${3 - experienceCount}개 남았어요!',
+            '부스가 ${6 - count}개 남았어요!',
             style: TextStyle(color: white),
           ),
           duration: Duration(seconds: 3),
@@ -280,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 0,
               color: border,
             ),
-            itemBuilder: (_, index) => BoothCard(
+            itemBuilder: (_, index) => _BoothCard(
               totalIndex: boothList.length,
               index: index,
               booth: boothList[index],
@@ -298,9 +283,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class BoothCard extends StatelessWidget {
-  const BoothCard({
-    super.key,
+class _BoothCard extends StatelessWidget {
+  const _BoothCard({
     required this.totalIndex,
     required this.index,
     required this.booth,
@@ -372,26 +356,26 @@ class BoothCard extends StatelessWidget {
               ),
             ),
           ),
-          Gap(6),
-          Container(
-            padding: EdgeInsets.symmetric(
-              vertical: 2,
-              horizontal: 6,
-            ),
-            decoration: BoxDecoration(
-              color: bgGrey,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Center(
-              child: Text(
-                booth.boothType,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: booth.boothType == '체험' ? sky : pink,
-                ),
-              ),
-            ),
-          ),
+          // Gap(6),
+          // Container(
+          //   padding: EdgeInsets.symmetric(
+          //     vertical: 2,
+          //     horizontal: 6,
+          //   ),
+          //   decoration: BoxDecoration(
+          //     color: bgGrey,
+          //     borderRadius: BorderRadius.circular(4),
+          //   ),
+          //   child: Center(
+          //     child: Text(
+          //       booth.boothType,
+          //       style: TextStyle(
+          //         fontSize: 12,
+          //         color: booth.boothType == '체험' ? sky : pink,
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
       children: [
